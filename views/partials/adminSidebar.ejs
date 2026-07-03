@@ -1,0 +1,52 @@
+<aside class="w-64 bg-neutral-950 text-neutral-400 flex flex-col justify-between shrink-0 border-r border-neutral-900 font-sans min-h-screen">
+    <div>
+        <div class="h-20 flex items-center px-6 border-b border-neutral-900 justify-between">
+            <a href="/admin" class="text-base font-black tracking-[0.2em] text-white font-mono">
+                BAG<span class="font-light text-neutral-500">VERSE</span>
+            </a>
+            <span class="text-[9px] font-mono border border-neutral-800 text-neutral-400 font-bold px-2 py-0.5 uppercase tracking-widest bg-neutral-900/50">
+                Admin
+            </span>
+        </div>
+        
+        <nav class="px-3 py-6 space-y-1 text-[11px] font-bold uppercase tracking-widest font-mono">
+            
+            <a href="/" class="flex items-center text-neutral-500 hover:text-white gap-3.5 px-4 py-3 transition-colors duration-150 group">
+                <i class="fa-solid fa-home text-xs text-neutral-600 group-hover:text-white transition-colors"></i>
+                <span>// Exit To Store</span>
+            </a>
+
+            <a href="/admin/dashboard" class="flex items-center justify-between px-4 py-3 transition-colors duration-150 <%= currentPage === 'overView' ? 'bg-neutral-900 text-white border-l-2 border-white' : 'text-neutral-500 hover:text-white' %>">
+                <div class="flex items-center gap-3.5">
+                    <i class="fa-solid fa-chart-pie text-xs <%= currentPage === 'overView' ? 'text-white' : 'text-neutral-600' %>"></i>
+                    <span>Overview Matrix</span>
+                </div>
+            </a>
+
+            <a href="/admin/products" class="flex items-center justify-between px-4 py-3 transition-colors duration-150 <%= currentPage === 'products' ? 'bg-neutral-900 text-white border-l-2 border-white' : 'text-neutral-500 hover:text-white' %>">
+                <div class="flex items-center gap-3.5">
+                    <i class="fa-solid fa-boxes-stacked text-xs <%= currentPage === 'products' ? 'text-white' : 'text-neutral-600' %>"></i>
+                    <span>Stock Catalog</span>
+                </div>
+            </a>
+
+            <a href="/admin/orders" class="flex items-center justify-between px-4 py-3 transition-colors duration-150 <%= currentPage === 'orders' ? 'bg-neutral-900 text-white border-l-2 border-white' : 'text-neutral-500 hover:text-white' %>">
+                <div class="flex items-center gap-3.5">
+                    <i class="fa-solid fa-receipt text-xs <%= currentPage === 'orders' ? 'text-white' : 'text-neutral-600' %>"></i>
+                    <span>Orders Master</span>
+                </div>
+            </a>
+
+        </nav>
+    </div>
+
+    <div class="p-4 border-t border-neutral-900 flex items-center gap-3 bg-neutral-900/10 font-mono">
+        <div class="w-8 h-8 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-white font-bold text-xs shrink-0">
+            <%= admin.name[0].toUpperCase() %>
+        </div>
+        <div class="truncate space-y-0.5">
+            <p class="text-[10px] font-black text-white leading-none tracking-wide"><%= admin.name.toUpperCase() %></p>
+            <p class="text-[9px] text-neutral-500 truncate lowercase tracking-normal"><%= admin.email %></p>
+        </div>
+    </div>
+</aside>

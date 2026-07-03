@@ -1,0 +1,142 @@
+<nav class="bg-white/90 backdrop-blur-md border-b border-neutral-200/60 sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex justify-between h-20 items-center">
+            
+            <div class="shrink-0 flex items-center">
+                <a href="/" class="text-xl font-black tracking-[0.25em] text-neutral-950 transition hover:opacity-80 font-mono">
+                    BAG<span class="font-light text-neutral-400">VERSE</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8 text-[11px] font-bold tracking-[0.2em] uppercase">
+                <a href="/" class="relative py-2 transition-colors duration-200 <%= currentPage === 'home' ? 'text-neutral-950' : 'text-neutral-400 hover:text-neutral-950' %> after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-neutral-950 after:transform <%= currentPage === 'home' ? 'after:scale-x-100' : 'after:scale-x-0' %> hover:after:scale-x-100 after:transition-transform after:duration-300">
+                    Home
+                </a>
+                <a href="/products/back-packs" class="relative py-2 transition-colors duration-200 <%= currentPage === 'backPacks' ? 'text-neutral-950' : 'text-neutral-400 hover:text-neutral-950' %> after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-neutral-950 after:transform <%= currentPage === 'backPacks' ? 'after:scale-x-100' : 'after:scale-x-0' %> hover:after:scale-x-100 after:transition-transform after:duration-300">
+                    Backpacks
+                </a>
+                <a href="/products/hand-bags" class="relative py-2 transition-colors duration-200 <%= currentPage === 'handBags' ? 'text-neutral-950' : 'text-neutral-400 hover:text-neutral-950' %> after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-neutral-950 after:transform <%= currentPage === 'handBags' ? 'after:scale-x-100' : 'after:scale-x-0' %> hover:after:scale-x-100 after:transition-transform after:duration-300">
+                    Handbags
+                </a>
+                <a href="/products/travel-bags" class="relative py-2 transition-colors duration-200 <%= currentPage === 'travelBags' ? 'text-neutral-950' : 'text-neutral-400 hover:text-neutral-950' %> after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-neutral-950 after:transform <%= currentPage === 'travelBags' ? 'after:scale-x-100' : 'after:scale-x-0' %> hover:after:scale-x-100 after:transition-transform after:duration-300">
+                    Travel
+                </a>
+                <a href="/admin/dashboard" class="<%= userRole === 'admin' ? 'block' : 'hidden' %> relative py-2 transition-colors duration-200 <%= currentPage === 'dashboard' ? 'text-neutral-950' : 'text-neutral-400 hover:text-neutral-950' %> after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-neutral-950 after:transform <%= currentPage === 'dashboard' ? 'after:scale-x-100' : 'after:scale-x-0' %> hover:after:scale-x-100 after:transition-transform after:duration-300">
+                    Dashboard
+                </a>
+            </div>
+            
+            <div class="flex items-center space-x-3 text-neutral-950">
+                <a href="/users/orders" class="p-2 hover:text-neutral-500 transition-colors duration-200 relative inline-flex items-center text-sm tracking-widest font-mono font-bold uppercase <%= currentPage === 'userOrders' ? 'text-neutral-950 border-b border-neutral-950' : 'text-neutral-400' %>" title="Order History">
+                    <i class="fa-solid fa-clock-history text-base md:mr-1.5"></i>
+                    <span class="hidden md:inline text-[9px]">// LOGS</span>
+                </a>
+
+                <a href="/cart" class="p-2 hover:text-neutral-500 transition-colors duration-200 relative inline-flex items-center mr-1" aria-label="Cart">
+                    <i class="bi bi-bag text-lg"></i>
+                    <% if (cart && cart.items && cart.items.length > 0) { %>
+                        <span id="nav-cart-count" class="absolute -top-0.5 -right-0.5 bg-neutral-950 text-white text-[8px] font-bold w-4 h-4 rounded-none flex items-center justify-center border border-white font-mono">
+                            <%= cart.items.length %>
+                        </span>
+                    <% } %>
+                </a>
+
+                <a href="/logout" class="hidden md:inline-block border border-neutral-200 px-3.5 py-1.5 text-[9px] font-bold tracking-widest font-mono uppercase rounded-none hover:bg-neutral-950 hover:text-white hover:border-neutral-950 transition-all duration-150">
+                    [ LOGOUT ]
+                </a>
+                
+                <button id="btn" class="md:hidden p-2 hover:text-neutral-500 transition-colors duration-200 cursor-pointer focus:outline-none relative w-9 h-9 flex items-center justify-center" aria-label="Toggle Menu">
+                    <i id="burger-icon" class="fa-solid fa-bars text-base absolute transition-all duration-300 transform scale-100 rotate-0"></i>
+                    <i id="close-icon" class="fa-solid fa-xmark text-lg absolute transition-all duration-300 transform scale-0 rotate-90 opacity-0"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="nav" class="hidden md:hidden absolute z-50 w-full bg-white/95 backdrop-blur-lg top-20 left-0 border-b border-neutral-200/60 shadow-xl transition-all duration-300 origin-top transform scale-y-95 opacity-0">
+        <div class="flex flex-col px-8 py-8 space-y-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+            <a href="/" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'home' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                <span>Home</span>
+                <i class="bi bi-chevron-right text-[9px] opacity-40"></i>
+            </a>
+            <a href="/products/back-packs" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'backPacks' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                <span>Backpacks</span>
+                <i class="bi bi-chevron-right text-[9px] opacity-40"></i>
+            </a>
+            <a href="/products/hand-bags" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'handBags' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                <span>Handbags</span>
+                <i class="bi bi-chevron-right text-[9px] opacity-40"></i>
+            </a>
+            <a href="/products/travel-bags" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'travelBags' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                <span>Travel</span>
+                <i class="bi bi-chevron-right text-[9px] opacity-40"></i>
+            </a>
+            
+            <a href="/users/orders" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'userOrders' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                <span>My Orders</span>
+                <i class="fa-solid fa-clock-history text-[9px] opacity-50"></i>
+            </a>
+            
+            <% if (userRole === 'admin') { %>
+                <a href="/admin/dashboard" class="pb-3 border-b border-neutral-100 flex justify-between items-center <%= currentPage === 'dashboard' ? 'text-neutral-950' : 'text-neutral-400' %>">
+                    <span>Dashboard</span>
+                    <i class="bi bi-chevron-right text-[9px] opacity-40"></i>
+                </a>
+            <% } %>
+
+            <a href="/logout" class="pb-3 border-b border-neutral-100 flex justify-between items-center text-red-600 font-mono tracking-widest">
+                <span>// LOGOUT TERMINAL</span>
+                <i class="fa-solid fa-power-off text-[9px] opacity-70"></i>
+            </a>
+            
+            <div class="pt-2 text-center text-[9px] tracking-widest text-neutral-400 font-mono normal-case">
+                // Complimentary express dispatch on orders.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileMenu = document.querySelector("#nav");
+        const btn = document.querySelector("#btn");
+        const burgerIcon = document.querySelector("#burger-icon");
+        const closeIcon = document.querySelector("#close-icon");
+
+        btn.addEventListener("click", () => {
+            const isHidden = mobileMenu.classList.contains("hidden");
+
+            if (isHidden) {
+                mobileMenu.classList.remove("hidden");
+                setTimeout(() => {
+                    mobileMenu.classList.remove("scale-y-95", "opacity-0");
+                    mobileMenu.classList.add("scale-y-100", "opacity-100");
+                }, 10);
+
+                burgerIcon.classList.replace("scale-100", "scale-0");
+                burgerIcon.classList.add("rotate-90", "opacity-0");
+                
+                closeIcon.classList.replace("scale-0", "scale-100");
+                closeIcon.classList.remove("rotate-90", "opacity-0");
+            } else {
+                mobileMenu.classList.remove("scale-y-100", "opacity-100");
+                mobileMenu.classList.add("scale-y-95", "opacity-0");
+                
+                burgerIcon.classList.replace("scale-0", "scale-100");
+                burgerIcon.classList.remove("rotate-90", "opacity-0");
+                
+                closeIcon.classList.replace("scale-100", "scale-0");
+                closeIcon.classList.add("rotate-90", "opacity-0");
+
+                setTimeout(() => {
+                    mobileMenu.classList.add("hidden");
+                }, 300);
+            }
+        });
+
+        window.updateNavbarCartCount = (newCount) => {
+            const badge = document.querySelector("#nav-cart-count");
+            if (badge) {
+                badge.innerText = newCount;
+            }
+        };
+    </script>
+</nav>

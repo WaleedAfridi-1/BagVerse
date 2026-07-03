@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BagVerse | Premium Handbags & Collections</title>
+    <!-- Tailwind CSS via CDN (v4) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-[#FBFBFA] font-sans text-neutral-900 antialiased min-h-screen flex flex-col justify-between selection:bg-neutral-900 selection:text-white">
+    
+    <!-- NavBar -->
+    <%- include("../partials/navbar") %>
+
+    <main class="flex-1">
+        <!-- High-End Editorial Page Header -->
+        <header class="max-w-7xl mx-auto px-6 lg:px-12 pt-20 pb-10 border-b border-neutral-200/70 text-left">
+            <nav class="text-[10px] font-bold tracking-[0.2em] text-neutral-400 uppercase mb-4 flex items-center gap-2">
+                <a href="/" class="hover:text-neutral-900 transition-colors">Index</a>
+                <span class="text-neutral-300">/</span>
+                <span class="text-neutral-900">Collections</span>
+            </nav>
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-mono text-neutral-400">Vol. 2026 // Fall</span>
+                    <h1 class="text-4xl sm:text-5xl font-light tracking-tight text-neutral-950 font-serif mt-1">
+                        Curated <span class="font-black italic">Artifacts.</span>
+                    </h1>
+                </div>
+                <p class="text-neutral-500 text-xs sm:text-sm max-w-sm font-normal leading-relaxed">
+                    Impeccable structural silhouettes engineered with architectural integrity and premium leather treatments.
+                </p>
+            </div>
+        </header>
+
+        <!-- Products Display Container -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 mb-16">
+            <% if (data && data.length > 0) { %>
+                <!-- 4-Column Clean Studio Grid (Sharp borders, no generic shadows) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                    
+                    <% data.toReversed().forEach(product => { %>
+                        <div class="group flex flex-col h-full relative bg-white border border-neutral-200/60 p-3 transition-all duration-300 hover:border-neutral-400">
+                            
+                            <!-- Product Canvas Image Box -->
+                            <div class="bg-[#F6F6F5] aspect-4/5 w-full overflow-hidden relative flex items-center justify-center p-4">
+                                <img src="data:<%= product.imageType %>;base64,<%= product.image.toString('base64')%>" alt="<%= product.name %>"
+                                    class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-102">
+
+                                <!-- Minimalist Label Badge -->
+                                <span class="absolute top-3 left-3 bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border border-neutral-200 text-neutral-600">
+                                    <%= product.category %>
+                                </span>
+                            </div>
+
+                            <!-- Details & Action Form Wrapper -->
+                            <form action="/cart/add" method="POST" class="ajax-cart-form mt-4 flex-1 flex flex-col justify-between">
+                                <div class="space-y-2">
+                                    <!-- Price & Premium Stock Indicators -->
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-bold text-neutral-950 tracking-tight">$<%= product.price %></p>
+                                        
+                                        <div>
+                                            <% if (product.stock === 0) { %>
+                                                <span class="text-[9px] font-bold tracking-wider text-neutral-400 uppercase bg-neutral-100 px-2 py-0.5">
+                                                    Archive / Out
+                                                </span>
+                                            <% } else if (product.stock < 5) { %>
+                                                <span class="text-[9px] font-bold tracking-wider text-amber-700 uppercase bg-amber-50 px-2 py-0.5 border border-amber-100">
+                                                    Scarce [<%= product.stock %>]
+                                                </span>
+                                            <% } else { %>
+                                                <span class="text-[9px] font-bold tracking-wider text-neutral-400 uppercase">
+                                                    Available
+                                                </span>
+                                            <% } %>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Title -->
+                                    <h3 class="font-normal text-neutral-800 text-[14px] leading-tight tracking-tight">
+                                        <a href="/products/<%= product._id %>" class="capitalize block hover:text-neutral-500 transition-colors line-clamp-1">
+                                            <%= product.name %>
+                                        </a>
+                                    </h3>
+                                </div>
+
+                                <!-- CTA Action Button Section -->
+                                <div class="mt-5">
+                                    <input type="hidden" value="<%= product._id %>" name="productId">
+                                    <input type="hidden" value="<%= userId %>" name="userId">
+
+                                    <% if (product.stock === 0) { %>
+                                        <button type="button" disabled
+                                            class="w-full bg-neutral-100 text-neutral-400 text-[10px] font-bold uppercase tracking-widest py-3 border border-neutral-200 cursor-not-allowed text-center">
+                                            Sold Out
+                                        </button>
+                                    <% } else { %>
+                                        <button type="submit"
+                                            class="submit-btn w-full bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-widest py-3 hover:bg-neutral-800 transition-all duration-200 shadow-xs cursor-pointer text-center">
+                                            + Add To Order
+                                        </button>
+                                    <% } %>
+                                </div>
+                            </form>
+                        </div>
+                    <% }); %>
+
+                </div>
+            <% } else { %>
+                <!-- Elegant Laboratory Empty State (Stark & Minimal) -->
+                <div class="text-center py-24 border border-neutral-200 bg-white max-w-xl mx-auto p-12">
+                    <span class="font-mono text-xs text-neutral-300 block mb-2">// NULL INDEX</span>
+                    <h3 class="text-lg font-bold text-neutral-900 uppercase tracking-widest font-serif">No Inventory Active</h3>
+                    <p class="text-xs text-neutral-400 mt-2 max-w-xs mx-auto leading-relaxed">
+                        We are currently balancing logistics and resetting batch manufacturing lines. Check back shortly for our new catalog drop.
+                    </p>
+                    <div class="mt-6">
+                        <a href="/" class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-neutral-950 border-b border-neutral-950 pb-0.5 hover:text-neutral-600 hover:border-neutral-400 transition-all">
+                            &larr; Return To Index
+                        </a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <%- include("../partials/footer") %>
+
+    <!-- AJAX Async Cart Controller Script -->
+    <script>
+        document.querySelectorAll('.ajax-cart-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('.submit-btn');
+                const originalText = btn.innerHTML;
+                
+                // Micro-Interaction: Trigger Loading State
+                btn.disabled = true;
+                btn.innerHTML = `<i class="bi bi-arrow-repeat animate-spin text-xs"></i> Processing`;
+                
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(formData)
+                    });
+                    
+                    if (response.ok) {
+                        // Success Affirmation Transition
+                        btn.className = "w-full bg-emerald-800 text-white text-[10px] font-bold uppercase tracking-widest py-3 text-center transition-all duration-200";
+                        btn.innerHTML = `<i class="bi bi-check-lg"></i> Added To Line`;
+                        
+                        // Reset structure back to luxury slate after 2 seconds
+                        setTimeout(() => {
+                            btn.className = "w-full bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-widest py-3 hover:bg-neutral-800 transition-all duration-200 shadow-xs cursor-pointer text-center";
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 2000);
+                    } else {
+                        throw new Error();
+                    }
+                } catch (err) {
+                    // Fail-Safe Error Micro-Interaction
+                    btn.className = "w-full bg-rose-800 text-white text-[10px] font-bold uppercase tracking-widest py-3 text-center transition-all duration-200";
+                    btn.innerHTML = `<i class="bi bi-exclamation-circle"></i> Retry`;
+                    setTimeout(() => {
+                        btn.className = "w-full bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-widest py-3 hover:bg-neutral-800 transition-all duration-200 shadow-xs cursor-pointer text-center";
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BagVerse | Premium Artifacts</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+    
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .editorial-kerning {
+            letter-spacing: -0.03em;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FBFBFA] font-sans text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
+
+    <%- include("partials/navbar") %>
+
+        <header class="relative min-h-[85vh] flex items-center border-b border-neutral-200/70 overflow-hidden bg-white">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-[#F5F5F3] -z-10 hidden md:block"></div>
+
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full py-16 grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7 space-y-8 text-left z-10">
+                    <div
+                        class="inline-flex items-center gap-2 border border-neutral-300 bg-neutral-50 px-3 py-1 rounded-full">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse"></span>
+                        <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-neutral-600">Edition 2026 /
+                            Issue 01</span>
+                    </div>
+
+                    <h1
+                        class="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-neutral-900 leading-[1.05] font-serif">
+                        Architecture of <br>
+                        <span class="font-black italic text-neutral-950">Pure Utility.</span>
+                    </h1>
+
+                    <p class="text-neutral-500 text-sm sm:text-base max-w-md font-normal leading-relaxed">
+                        A curated collection of leather carryalls, urban backpacks, and travel instruments engineered
+                        for the modern purist.
+                    </p>
+
+                    <div class="pt-2 flex flex-sm-row items-center gap-4">
+                        <a href="#shop"
+                            class="group relative inline-flex items-center justify-center bg-neutral-950 text-white px-8 py-4 rounded-none text-xs font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 hover:bg-neutral-800">
+                            <span class="relative z-10">Explore Catalog</span>
+                            <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex justify-center md:justify-end relative w-full">
+                    <div
+                        class="relative w-full max-w-100 aspect-4/5 bg-[#F5F5F3] p-4 group overflow-hidden border border-neutral-200/60">
+                        <span
+                            class="absolute top-6 right-6 text-[10px] font-black uppercase tracking-widest text-neutral-400/40">BV-026</span>
+
+                        <img src="https://i.pinimg.com/736x/15/a3/6d/15a36de0c559d5f3327e16f3fe1737d5.jpg"
+                            alt="Premium Bag"
+                            class="w-full h-full object-contain mix-blend-multiply scale-95 group-hover:scale-100 transition-transform duration-1000 ease-out">
+
+                        <div
+                            class="absolute bottom-6 left-6 bg-white px-4 py-2 border border-neutral-200 text-[11px] font-bold tracking-wider text-neutral-900 uppercase">
+                            Genuine Hide // Handcrafted
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-neutral-200 pb-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400">Classifications</span>
+                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900 mt-1 font-serif">Curated Segments</h2>
+                </div>
+                <p class="text-neutral-400 text-xs mt-2 md:mt-0 max-w-xs">Form meets function tailored directly for
+                    daily transitions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-transparent">
+
+                <!-- Category 1: Urban Backpacks -->
+                <a href="/products/urban/bags"
+                    class="group relative block aspect-4/5 w-full overflow-hidden bg-neutral-900 text-white">
+                    <!-- Background Premium Image Overlaid With Stark Dark Mesh -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 grayscale contrast-125 scale-100 group-hover:scale-105 group-hover:opacity-30 transition-all duration-700 ease-out"
+                        style="background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600');">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-neutral-950 via-neutral-950/40 to-transparent z-10">
+                    </div>
+
+                    <!-- Layout Details -->
+                    <div class="absolute inset-0 z-20 p-8 flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <span
+                                class="font-mono text-[10px] tracking-widest text-neutral-400 uppercase bg-neutral-950/60 backdrop-blur-md px-2 py-1 border border-neutral-800">
+                                Cat // 01
+                            </span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center bg-neutral-950/30 backdrop-blur-xs text-neutral-300 group-hover:bg-white group-hover:text-neutral-950 group-hover:scale-110 transition-all duration-300">
+                                <i class="bi bi-backpack text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div
+                            class="space-y-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-xl font-black uppercase tracking-tight font-sans leading-none">
+                                Urban <br><span
+                                    class="text-neutral-400 font-light italic group-hover:text-white transition-colors">Backpacks</span>
+                            </h3>
+                            <p
+                                class="text-neutral-400 text-xs font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                                Engineered modular systems for internal city transit.
+                            </p>
+                            <div
+                                class="pt-2 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-white">
+                                <span class="border-b border-white pb-0.5">View Series</span>
+                                <i
+                                    class="bi bi-arrow-right transform -translate-x-1 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Category 2: Luxury Handbags -->
+                <a href="/products/luxury/bags"
+                    class="group relative block aspect-4/5 w-full overflow-hidden bg-neutral-900 text-white">
+                    <!-- Background Premium Image Overlaid With Stark Dark Mesh -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 grayscale contrast-125 scale-100 group-hover:scale-105 group-hover:opacity-30 transition-all duration-700 ease-out"
+                        style="background-image: url('https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=600');">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-neutral-950 via-neutral-950/40 to-transparent z-10">
+                    </div>
+
+                    <!-- Layout Details -->
+                    <div class="absolute inset-0 z-20 p-8 flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <span
+                                class="font-mono text-[10px] tracking-widest text-neutral-400 uppercase bg-neutral-950/60 backdrop-blur-md px-2 py-1 border border-neutral-800">
+                                Cat // 02
+                            </span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center bg-neutral-950/30 backdrop-blur-xs text-neutral-300 group-hover:bg-white group-hover:text-neutral-950 group-hover:scale-110 transition-all duration-300">
+                                <i class="fa-solid fa-briefcase text-xs"></i>
+                            </div>
+                        </div>
+
+                        <div
+                            class="space-y-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-xl font-black uppercase tracking-tight font-sans leading-none">
+                                Luxury <br><span
+                                    class="text-neutral-400 font-light italic group-hover:text-white transition-colors">Handbags</span>
+                            </h3>
+                            <p
+                                class="text-neutral-400 text-xs font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                                Sartorial leather goods cut from pristine hide.
+                            </p>
+                            <div
+                                class="pt-2 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-white">
+                                <span class="border-b border-white pb-0.5">View Series</span>
+                                <i
+                                    class="bi bi-arrow-right transform -translate-x-1 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Category 3: Travel Duffles -->
+                <a href="/products/travel-bags"
+                    class="group relative block aspect-4/5 w-full overflow-hidden bg-neutral-900 text-white">
+                    <!-- Background Premium Image Overlaid With Stark Dark Mesh -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40 grayscale contrast-125 scale-100 group-hover:scale-105 group-hover:opacity-30 transition-all duration-700 ease-out"
+                        style="background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=600');">
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-linear-to-t from-neutral-950 via-neutral-950/40 to-transparent z-10">
+                    </div>
+
+                    <!-- Layout Details -->
+                    <div class="absolute inset-0 z-20 p-8 flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <span
+                                class="font-mono text-[10px] tracking-widest text-neutral-400 uppercase bg-neutral-950/60 backdrop-blur-md px-2 py-1 border border-neutral-800">
+                                Cat // 03
+                            </span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center bg-neutral-950/30 backdrop-blur-xs text-neutral-300 group-hover:bg-white group-hover:text-neutral-950 group-hover:scale-110 transition-all duration-300">
+                                <i class="fa-solid fa-suitcase-rolling text-xs"></i>
+                            </div>
+                        </div>
+
+                        <div
+                            class="space-y-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="text-xl font-black uppercase tracking-tight font-sans leading-none">
+                                Travel <br><span
+                                    class="text-neutral-400 font-light italic group-hover:text-white transition-colors">Duffles</span>
+                            </h3>
+                            <p
+                                class="text-neutral-400 text-xs font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                                High-volume transport assets for heavy operations.
+                            </p>
+                            <div
+                                class="pt-2 flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-white">
+                                <span class="border-b border-white pb-0.5">View Series</span>
+                                <i
+                                    class="bi bi-arrow-right transform -translate-x-1 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <main id="shop" class="max-w-7xl mx-auto px-6 lg:px-12 py-12 mb-24">
+            <div class="mb-12">
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400">Seasonal Index</span>
+                <h2 class="text-3xl font-bold tracking-tight text-neutral-900 mt-1 font-serif">Trending Artifacts</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                <% data.forEach(product=> { %>
+                    <div
+                        class="group flex flex-col h-full relative bg-white border border-neutral-200/60 p-3 transition-all duration-300 hover:border-neutral-400">
+
+                        <div
+                            class="bg-[#F6F6F5] aspect-4/5 w-full overflow-hidden relative flex items-center justify-center p-4">
+                            <img src="<%= product.image %>" alt="<%= product.name %>"
+                                class="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-102">
+
+                            <span
+                                class="absolute top-3 left-3 bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border border-neutral-200 text-neutral-600">
+                                <%= product.category %>
+                            </span>
+                        </div>
+
+                        <form action="/cart/add" method="POST" class="mt-4 flex-1 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-bold text-neutral-950 tracking-tight">$<%= product.price %>
+                                    </p>
+
+                                    <div>
+                                        <% if (product.stock===0) { %>
+                                            <span
+                                                class="text-[9px] font-bold tracking-wider text-neutral-400 uppercase bg-neutral-100 px-2 py-0.5">
+                                                Archive / Out
+                                            </span>
+                                            <% } else if (product.stock < 5) { %>
+                                                <span
+                                                    class="text-[9px] font-bold tracking-wider text-amber-700 uppercase bg-amber-50 px-2 py-0.5 border border-amber-100">
+                                                    Scarce [<%= product.stock %> left]
+                                                </span>
+                                                <% } else { %>
+                                                    <span
+                                                        class="text-[9px] font-bold tracking-wider text-neutral-400 uppercase">
+                                                        Available
+                                                    </span>
+                                                    <% } %>
+                                    </div>
+                                </div>
+
+                                <h3 class="font-normal text-neutral-800 text-[14px] leading-tight tracking-tight">
+                                    <a href="/products/<%= product._id %>"
+                                        class="capitalize block hover:text-neutral-500 transition-colors line-clamp-1">
+                                        <%= product.name %>
+                                    </a>
+                                </h3>
+                            </div>
+
+                            <div class="mt-4">
+                                <input type="hidden" value="<%= product._id %>" name="productId">
+                                <input type="hidden" value="<%= userId %>" name="userId">
+
+                                <% if (product.stock===0) { %>
+                                    <button type="button" disabled
+                                        class="w-full bg-neutral-100 text-neutral-400 text-[10px] font-bold uppercase tracking-widest py-3 border border-neutral-200 cursor-not-allowed">
+                                        Sold Out
+                                    </button>
+                                    <% } else { %>
+                                        <button type="submit"
+                                            class="w-full bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-widest py-3 hover:bg-neutral-800 transition-colors duration-200 shadow-xs cursor-pointer">
+                                            + Add To Order
+                                        </button>
+                                        <% } %>
+                            </div>
+                        </form>
+                    </div>
+                    <% }); %>
+            </div>
+        </main>
+
+        <%- include("partials/footer") %>
+
+</body>
+
+</html>

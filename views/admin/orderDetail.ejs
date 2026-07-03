@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details | BagVerse Corporate</title>
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-900 antialiased min-h-screen flex relative selection:bg-slate-950 selection:text-white">
+
+    <!-- 1. LEFT SIDEBAR LAYER -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200/60 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 lg:static lg:block shrink-0">
+        <%- include("../partials/adminSidebar") %>
+    </aside>
+
+    <!-- 2. CORE ACTIONABLE WORKSPACE -->
+    <main class="flex-1 p-5 sm:p-8 lg:p-10 min-w-0 w-full max-w-[1600px] mx-auto space-y-6">
+        
+        <!-- Live Global System Notification Toast -->
+        <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-150%] transition-transform duration-300 bg-slate-950 text-white px-5 py-3 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2.5 border border-slate-800">
+            <i class="fa-solid fa-square-check text-emerald-400 text-sm" id="toastIcon"></i>
+            <span id="toastMessage">Pipeline Status Altered</span>
+        </div>
+
+        <!-- Upper Navigation Controls -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/40 pb-4">
+            <div class="flex items-center gap-4">
+                <a href="/admin/orders" class="inline-flex items-center justify-center p-2.5 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-slate-900 shadow-3xs transition-all active:scale-95">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                </a>
+                <div class="space-y-0.5">
+                    <h1 class="text-base sm:text-lg font-black tracking-tight text-slate-900 uppercase font-mono">Order #<%= order._id.toString().slice(-6).toUpperCase() %></h1>
+                    <p class="text-[11px] text-slate-400 font-medium">Recorded Pipeline Dispatch: <span class="font-mono font-bold text-slate-500"><%= new Date(order.createdAt).toLocaleString('en-US', { hour12: true }) %></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Split Structural Blueprint Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Left Primary Stack: Manifest & System Operations -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Order Items Sub-Registry -->
+                <div class="bg-white rounded-xl border border-slate-200/60 shadow-3xs overflow-hidden">
+                    <div class="border-b border-slate-200/60 p-4 bg-slate-50/50">
+                        <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-box-archive text-slate-400"></i> Order Items Manifest
+                        </h2>
+                    </div>
+                    <div class="divide-y divide-slate-100">
+                        <% order.orderItems.forEach(item => { %>
+                            <div class="p-4 sm:p-5 flex items-center justify-between gap-4 group hover:bg-slate-50/30 transition-colors">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="w-14 h-14 overflow-hidden bg-slate-50 rounded-xl flex items-center justify-center shrink-0 text-slate-400 border border-slate-200/60 transition-colors group-hover:border-slate-300">
+                                        <% if(item.product && item.product.image) { %>
+                                            <img src="data:<%- item.product.imageType %>;base64,<%- item.product.image.toString('base64') %>" class="w-full h-full object-cover" alt="">
+                                        <% } else { %>
+                                            <i class="fa-solid fa-bag-shopping text-base text-slate-300"></i>
+                                        <% } %>
+                                    </div>
+                                    <div class="min-w-0 space-y-0.5">
+                                        <h4 class="font-bold text-slate-800 uppercase tracking-wide truncate max-w-70 sm:max-w-xs text-xs"><%= item.name %></h4>
+                                        <p class="text-[11px] font-mono font-medium text-slate-400">Unit Price: $<%= item.price.toFixed(2) %></p>
+                                    </div>
+                                </div>
+                                <div class="text-right shrink-0 space-y-0.5">
+                                    <div class="text-[11px] font-bold text-slate-400 uppercase font-mono">QTY: <%= item.quantity %></div>
+                                    <div class="text-xs font-black text-slate-900 font-mono">$<%= (item.price * item.quantity).toFixed(2) %></div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+
+                <!-- Transaction & Pipeline Status Updates Panel -->
+                <div class="bg-white rounded-xl border border-slate-200/60 shadow-3xs p-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold block">Payment System Gateway</span>
+                        <div class="text-xs font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2 pt-1">
+                            <i class="fa-solid fa-file-shield text-slate-400"></i> <%= order.paymentMethod || "Cash On Delivery" %>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label for="statusSelect" class="text-[10px] text-slate-400 uppercase tracking-widest font-bold block">Pipeline Execution Status</label>
+                        <div class="relative w-full">
+                            <select id="statusSelect" data-order-id="<%= order._id %>" 
+                                class="w-full px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border outline-none cursor-pointer appearance-none bg-no-repeat bg-position-[right_0.85rem_center] bg-size-[0.8em_0.8em] transition-all duration-200 shadow-3xs">
+                                <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>⏳ Pending</option>
+                                <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>🚚 Shipped</option>
+                                <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>✅ Delivered</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Secondary Stack: Customer Dossier & Fiscal Summary -->
+            <div class="space-y-6">
+                
+                <!-- Customer Details Dossier -->
+                <div class="bg-white rounded-xl border border-slate-200/60 shadow-3xs p-5 space-y-4">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-user-gear text-slate-400"></i> Customer Profile Dossier
+                    </h3>
+                    <div class="space-y-3.5 text-xs">
+                        <div class="space-y-0.5">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Full Name</span>
+                            <span class="font-bold text-slate-800 uppercase tracking-wide block"><%= order.name %></span>
+                        </div>
+                        <div class="space-y-0.5">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Email Channel</span>
+                            <span class="font-medium text-slate-600 lowercase block break-all"><%= order.email %></span>
+                        </div>
+                        <div class="space-y-0.5">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Communications Network</span>
+                            <span class="font-mono font-bold text-slate-700 block"><%= order.phone %></span>
+                        </div>
+                        <div class="border-t border-slate-100 pt-3.5 space-y-1">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Shipping Destination Matrix</span>
+                            <p class="font-bold text-slate-800 uppercase tracking-wide text-[11px] leading-relaxed">
+                                <%= order.address %>,<br>
+                                <span class="text-slate-500 font-mono text-xs"><%= order.city %> — <%= order.postalCode %></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Financial Summary Container -->
+                <div class="bg-white rounded-xl border border-slate-200/60 shadow-3xs p-5 space-y-4">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-receipt text-slate-400"></i> Financial Ledger
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <% 
+                            let itemsSubtotal = order.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                            let deliveryFee = 10; 
+                        %>
+                        <div class="flex justify-between items-center text-slate-500 font-medium">
+                            <span class="uppercase tracking-wider text-[11px]">Subtotal Aggregate</span>
+                            <span class="font-mono font-bold text-slate-800">$<%= itemsSubtotal.toFixed(2) %></span>
+                        </div>
+                        <div class="flex justify-between items-center text-slate-500 font-medium">
+                            <span class="uppercase tracking-wider text-[11px]">Logistics Tariff</span>
+                            <span class="font-mono font-bold text-slate-800">$<%= deliveryFee.toFixed(2) %></span>
+                        </div>
+                        <div class="border-t border-slate-100 pt-3.5 flex justify-between items-center text-slate-900">
+                            <span class="font-bold uppercase tracking-wider text-[11px]">Aggregate Valuation</span>
+                            <span class="font-black text-base text-slate-950 font-mono">$<%= order.totalPrice ? order.totalPrice.toFixed(2) : (itemsSubtotal + deliveryFee).toFixed(2) %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Operational State Interactivity Engine -->
+    <script>
+        const statusSelect = document.getElementById("statusSelect");
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+
+        // Dynamic Badge Styling Realization Engine
+        function updateSelectStyle(status) {
+            statusSelect.className = "w-full px-3.5 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border outline-none cursor-pointer appearance-none bg-no-repeat bg-[right_0.75rem_center] bg-[length:0.8em_0.8em] transition-all duration-200 shadow-3xs";
+            
+            if (status === "Pending") {
+                statusSelect.classList.add("text-amber-700", "bg-amber-50", "border-amber-200", "focus:border-amber-400");
+            } else if (status === "Shipped") {
+                statusSelect.classList.add("text-blue-700", "bg-blue-50", "border-blue-200", "focus:border-blue-400");
+            } else if (status === "Delivered") {
+                statusSelect.classList.add("text-emerald-700", "bg-emerald-50", "border-emerald-200", "focus:border-emerald-400");
+            }
+        }
+
+        // Initialize Native Styles on Initial Load
+        updateSelectStyle(statusSelect.value);
+
+        // Core Endpoint State Dispatch Handler
+        statusSelect.addEventListener("change", async function() {
+            const newStatus = this.value;
+            const orderId = this.getAttribute("data-order-id");
+
+            try {
+                const response = await fetch(`/admin/orders/${orderId}/status`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    updateSelectStyle(newStatus);
+                    
+                    // Display Notification Toast Layer
+                    toastMessage.innerText = data.message || "State Aligned Successfully";
+                    toast.classList.remove("translate-y-[-150%]");
+                    toast.classList.add("translate-y-0");
+
+                    // Automated System Clear Loop
+                    setTimeout(() => {
+                        toast.classList.remove("translate-y-0");
+                        toast.classList.add("translate-y-[-150%]");
+                    }, 3000);
+                } else {
+                    alert("Operational Failure: " + data.message);
+                }
+            } catch (err) {
+                console.error("System Error Context:", err);
+                alert("Critical error dispatched while communicating with core infrastructure.");
+            }
+        });
+    </script>
+</body>
+
+</html>

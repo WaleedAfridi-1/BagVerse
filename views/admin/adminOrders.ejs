@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management | BagVerse Corporate</title>
+    <!-- Tailwind CSS v4 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Layout Scrolls -->
+    <style>
+        .unique-scroll::-webkit-scrollbar { height: 4px; }
+        .unique-scroll::-webkit-scrollbar-track { background: transparent; }
+        .unique-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 9999px; }
+        .unique-scroll::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+    </style>
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-900 antialiased min-h-screen flex relative selection:bg-slate-900 selection:text-white">
+
+    <!-- 1. LEFT SIDEBAR (Mobile Responsive System) -->
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200/60 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 lg:static lg:block shrink-0">
+        <%- include("../partials/adminSidebar") %>
+    </aside>
+
+    <!-- Sidebar Drawer Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-xs hidden lg:hidden transition-all duration-300"></div>
+
+    <!-- 2. CORE WORKSPACE AREA -->
+    <main class="flex-1 p-5 sm:p-8 lg:p-10 transition-all duration-300 min-w-0 w-full max-w-[1600px] mx-auto space-y-6">
+
+        <!-- Top Control Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <button id="menuBtn"
+                    class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer transition-colors">
+                    <i class="fa-solid fa-bars-staggered text-base"></i>
+                </button>
+                <div class="space-y-0.5">
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 uppercase">Orders Management</h1>
+                    <p class="text-[11px] sm:text-xs text-slate-400 font-medium">Monitor, filter, and process live customer transactions and pipeline statuses.</p>
+                </div>
+            </div>
+            <!-- <button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 font-bold text-xs uppercase tracking-wider rounded-xl shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-all active:scale-[0.98] cursor-pointer w-full sm:w-auto">
+                <i class="fa-solid fa-download text-slate-400"></i> Export Orders
+            </button> -->
+        </div>
+
+        <!-- KPI METRICS DATA ROW -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Total Orders -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-3xs flex items-center gap-4 group">
+                <div class="p-3 bg-slate-50 border border-slate-100 text-slate-700 rounded-xl shrink-0 transition-colors group-hover:bg-slate-950 group-hover:text-white"><i class="fa-solid fa-boxes-stacked text-sm"></i></div>
+                <div class="min-w-0 space-y-0.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Orders</span>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 font-mono truncate"><%= stats.totalOrders %></h3>
+                </div>
+            </div>
+            <!-- Pending -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-3xs flex items-center gap-4 group">
+                <div class="p-3 bg-amber-50 border border-amber-100/50 text-amber-600 rounded-xl shrink-0 transition-colors group-hover:bg-amber-600 group-hover:text-white"><i class="fa-solid fa-spinner text-sm"></i></div>
+                <div class="min-w-0 space-y-0.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Pending Processing</span>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 font-mono truncate"><%= stats.pendingCount %></h3>
+                </div>
+            </div>
+            <!-- Shipped -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-3xs flex items-center gap-4 group">
+                <div class="p-3 bg-blue-50 border border-blue-100/50 text-blue-600 rounded-xl shrink-0 transition-colors group-hover:bg-blue-600 group-hover:text-white"><i class="fa-solid fa-truck-ramp-box text-sm"></i></div>
+                <div class="min-w-0 space-y-0.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Shipped / Active</span>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 font-mono truncate"><%= stats.shippedCount %></h3>
+                </div>
+            </div>
+            <!-- Revenue -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200/60 shadow-3xs flex items-center gap-4 group">
+                <div class="p-3 bg-emerald-50 border border-emerald-100/50 text-emerald-600 rounded-xl shrink-0 transition-colors group-hover:bg-emerald-600 group-hover:text-white"><i class="fa-solid fa-dollar-sign text-sm"></i></div>
+                <div class="min-w-0 space-y-0.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Total Revenue</span>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 font-mono truncate">$<%= stats.totalRevenue.toFixed(2) %></h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANAGEMENT SYSTEM INTERFACE LAYER -->
+        <div class="bg-white rounded-xl border border-slate-200/60 shadow-3xs overflow-hidden">
+            
+            <!-- Filters & Controls Sub-Header -->
+            <div class="p-4 border-b border-slate-200/60 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white">
+                <div class="relative w-full md:max-w-xs">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchBar"
+                        placeholder="Search by Order ID, Customer name..."
+                        class="w-full pl-8.5 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-slate-900 focus:bg-white transition-colors placeholder:text-slate-400">
+                </div>
+
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 unique-scroll w-full md:w-auto">
+                    <button class="buttons px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg whitespace-nowrap cursor-pointer transition-all bg-slate-950 text-white shadow-3xs">All Orders</button>
+                    <button class="buttons px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg whitespace-nowrap cursor-pointer transition-all text-slate-500 hover:bg-slate-50 hover:text-slate-900">Pending</button>
+                    <button class="buttons px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg whitespace-nowrap cursor-pointer transition-all text-slate-500 hover:bg-slate-50 hover:text-slate-900">Shipped</button>
+                    <button class="buttons px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg whitespace-nowrap cursor-pointer transition-all text-slate-500 hover:bg-slate-50 hover:text-slate-900">Delivered</button>
+                </div>
+            </div>
+
+            <!-- Master Data Table Grid -->
+            <div class="overflow-x-auto w-full unique-scroll">
+                <table class="w-full text-left border-collapse min-w-212.5">
+                    <thead>
+                        <tr class="bg-slate-50/70 border-b border-slate-200/60 text-[10px] font-bold text-slate-400 uppercase tracking-widestSub">
+                            <th class="py-4 px-6 w-[20%]">Order Info</th>
+                            <th class="py-4 px-6 w-[25%]">Customer Profile</th>
+                            <th class="py-4 px-6 w-[25%]">Item Bundles</th>
+                            <th class="py-4 px-6 w-[15%]">Valuation</th>
+                            <th class="py-4 px-6 w-[15%]">Pipeline Status</th>
+                            <th class="py-4 px-6 w-[10%] text-right">System Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-xs text-slate-600">
+                        <% if (orders && orders.length > 0) { %>
+                            <% orders.forEach(order => { %>
+                                <tr class="orderRow hover:bg-slate-50/40 transition-colors group">
+                                    <!-- Order ID & Timestamp -->
+                                    <td class="py-4 px-6 whitespace-nowrap">
+                                        <span class="font-bold text-slate-900 uppercase font-mono tracking-wide">
+                                            #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                        </span>
+                                        <div class="text-[10px] font-mono text-slate-400 mt-0.5">
+                                            <%= new Date(order.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                                        </div>
+                                    </td>
+                                    <!-- Customer Metadata -->
+                                    <td class="py-4 px-6 whitespace-nowrap">
+                                        <div class="font-bold text-slate-800 uppercase tracking-wide"><%= order.name %></div>
+                                        <div class="text-[11px] text-slate-400 font-medium lowercase"><%= order.email %></div>
+                                    </td>
+                                    <!-- Line Items Registry -->
+                                    <td class="py-4 px-6">
+                                        <% if (order.orderItems && order.orderItems.length > 0) { %>
+                                            <div class="text-slate-700 font-bold uppercase tracking-wide truncate max-w-55">
+                                                <%= order.orderItems[0].quantity %>x <%= order.orderItems[0].name %>
+                                            </div>
+                                            <% if (order.orderItems.length > 1) { %>
+                                                <div class="text-[10px] text-slate-400 font-medium font-mono mt-0.5">+<%= order.orderItems.length - 1 %> additional metadata block(s)</div>
+                                            <% } %>
+                                        <% } else { %>
+                                            <div class="text-[10px] font-bold text-rose-500 uppercase tracking-wider">Empty Core Asset</div>
+                                        <% } %>
+                                    </td>
+                                    <!-- Aggregate valuation -->
+                                    <td class="py-4 px-6 font-bold text-slate-900 font-mono tracking-tight">
+                                        $<%= order.totalPrice ? order.totalPrice.toFixed(2) : "0.00" %>
+                                    </td>
+                                    <!-- Dynamic Pipeline Status Badge -->
+                                    <td class="py-4 px-6 whitespace-nowrap">
+                                        <% 
+                                            let badgeColor = "text-amber-700 bg-amber-50 border-amber-100";
+                                            let dotColor = "bg-amber-500";
+                                            let currentStatus = order.status || "Pending";
+                                            if(currentStatus === "Shipped") { badgeColor = "text-blue-700 bg-blue-50 border-blue-100"; dotColor = "bg-blue-500"; }
+                                            if(currentStatus === "Delivered") { badgeColor = "text-emerald-700 bg-emerald-50 border-emerald-100"; dotColor = "bg-emerald-500"; }
+                                        %>
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest border rounded-md <%= badgeColor %>">
+                                            <span class="w-1.5 h-1.5 <%= dotColor %> rounded-full"></span>
+                                            <%= currentStatus %>
+                                        </span>
+                                    </td>
+                                    <!-- Master Control Actions -->
+                                    <td class="py-4 px-6 text-right whitespace-nowrap">
+                                        <div class="flex items-center justify-end gap-1.5">
+                                            <a href="/admin/orders/<%= order._id %>" 
+                                               class="p-1.5 text-slate-400 hover:text-slate-900 border border-transparent hover:border-slate-200 hover:bg-white rounded-md transition-all" 
+                                               title="View Asset Flow">
+                                                <i class="fa-solid fa-eye text-[11px]"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="6" class="text-center py-10 text-slate-400 font-medium uppercase tracking-wider text-[10px]">No operational transactions located in system cache.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Footer Metadata Context -->
+            <div class="px-5 py-4 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between bg-slate-50/50 gap-4">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center sm:text-left">Showing <%= orders.length %> Active Stream Entries</span>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- UI/UX Event Operations Script -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const searchBar = document.getElementById("searchBar");
+        const orderRows = document.querySelectorAll(".orderRow");
+        const buttons = document.querySelectorAll(".buttons");
+
+        // Drawer Sidebar Toggles
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+        if (menuBtn) menuBtn.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+        // Native Live Search Engine Layer
+        searchBar.addEventListener("input", function() {
+            const searchValue = this.value.toLowerCase().trim();
+            orderRows.forEach(row => {
+                const orderId = row.querySelector("td span.font-bold").innerText.toLowerCase();
+                const customerName = row.querySelector("td:nth-child(2) div.font-bold").innerText.toLowerCase();
+                
+                if (orderId.includes(searchValue) || customerName.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
+        // Pipeline Status Filtration Engine
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function () {
+                buttons.forEach(button => {
+                    button.classList.remove("bg-slate-950", "text-white", "shadow-3xs");
+                    button.classList.add("text-slate-500", "hover:bg-slate-50", "hover:text-slate-900");
+                });
+
+                this.classList.remove("text-slate-500", "hover:bg-slate-50", "hover:text-slate-900");
+                this.classList.add("bg-slate-950", "text-white", "shadow-3xs");
+
+                const selectedCategory = this.innerText.trim().toLowerCase();
+
+                orderRows.forEach(row => {
+                    const statusBadge = row.querySelector("td:nth-child(5) span");
+                    const orderStatus = statusBadge ? statusBadge.innerText.trim().toLowerCase() : "";
+
+                    if (selectedCategory === "all orders" || orderStatus === selectedCategory) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

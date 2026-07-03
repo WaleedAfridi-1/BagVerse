@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BagVerse | Premium Handbags & Collections</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-[#FCFCFC] font-sans text-neutral-900 antialiased min-h-screen flex flex-col justify-between selection:bg-black selection:text-white">
+    
+    <!-- NavBar -->
+    <%- include("../partials/navbar") %>
+
+    <main class="flex-1">
+        <!-- Minimalist Luxury Page Header -->
+        <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 border-b border-neutral-200/60 text-center sm:text-left">
+            <nav class="text-[10px] font-bold tracking-[0.2em] text-neutral-400 uppercase mb-4 flex items-center justify-center sm:justify-start gap-2.5 font-mono">
+                <a href="/" class="hover:text-black transition-colors">Home</a>
+                <span class="text-neutral-300">/</span>
+                <span class="text-neutral-900">Collection System</span>
+            </nav>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-wider text-neutral-900 uppercase font-mono">
+                Curated <span class="font-light text-neutral-400">Designs</span>
+            </h1>
+            <p class="text-xs text-neutral-500 mt-3 max-w-md uppercase tracking-wider leading-relaxed font-mono font-medium">
+                impeccable structural lines and premium luxury materials crafted for seamless everyday elevation.
+            </p>
+        </header>
+
+        <!-- Products Display Container -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <% if (data && data.length > 0) { %>
+                <!-- Master Clean Responsive Grid Layout (No rounded borders, architectural raw framing) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                    
+                    <% data.toReversed().forEach(product => { %>
+                        <div class="bg-white rounded-none border border-neutral-200/70 overflow-hidden hover:border-neutral-900 transition-all duration-300 flex flex-col group h-full relative">
+                            
+                            <!-- Image Wrapper -->
+                            <div class="bg-neutral-50 aspect-4/5 w-full overflow-hidden relative flex items-center justify-center border-b border-neutral-100">
+                                <img src="data:<%= product.imageType %>;base64,<%= product.image.toString('base64')%>" alt="<%= product.name %>"
+                                    class="w-full h-full object-cover shrink-0 grayscale-15 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out">
+
+                                <!-- Premium Category Badge -->
+                                <span class="absolute top-4 left-4 bg-black text-white px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.15em] rounded-none font-mono">
+                                    <%= product.category %>
+                                </span>
+                            </div>
+
+                            <!-- Form & Content Wrapper -->
+                            <form action="/cart/add" method="POST" class="p-5 flex-1 flex flex-col justify-between bg-white rounded-none">
+                                <div class="space-y-4">
+                                    <!-- Product Title -->
+                                    <h3 class="font-mono font-bold text-neutral-800 text-xs tracking-wider uppercase group-hover:text-black transition-colors duration-200">
+                                        <a href="/products/<%= product._id %>" class="block line-clamp-2 leading-relaxed">
+                                            <%= product.name %>
+                                        </a>
+                                    </h3>
+
+                                    <!-- Price & Premium Stock Status Indicators -->
+                                    <div class="flex items-center justify-between gap-2 border-t border-neutral-100 pt-3.5">
+                                        <p class="text-sm font-black text-neutral-900 tracking-wider font-mono">$<%= product.price %></p>
+                                        
+                                        <div class="font-mono text-[9px] uppercase tracking-widest font-bold">
+                                            <% if (product.stock === 0) { %>
+                                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-neutral-400 bg-neutral-100 border border-neutral-200">
+                                                    OUT OF STOCK
+                                                </span>
+                                            <% } else if (product.stock < 5) { %>
+                                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-red-600 bg-red-50/60 border border-red-100 animate-pulse">
+                                                    LIMITED RUN
+                                                </span>
+                                            <% } else { %>
+                                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-neutral-500 bg-neutral-50 border border-neutral-200/60">
+                                                    AVAILABLE
+                                                </span>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hidden Inputs & Smart CTA Button -->
+                                <div class="mt-6">
+                                    <input type="hidden" value="<%= product._id %>" name="productId">
+                                    <input type="hidden" value="<%= userId %>" name="userId">
+
+                                    <% if (product.stock === 0) { %>
+                                        <button type="button" disabled
+                                            class="w-full bg-neutral-100 text-neutral-400 text-[10px] font-bold uppercase tracking-[0.2em] py-3.5 rounded-none cursor-not-allowed text-center border border-neutral-200 font-mono">
+                                            [ ARCHIVE / SOLD OUT ]
+                                        </button>
+                                    <% } else { %>
+                                        <button type="submit"
+                                            class="w-full bg-neutral-950 text-white text-[10px] font-bold uppercase tracking-[0.2em] py-3.5 rounded-none hover:bg-neutral-800 active:bg-black transition-all duration-150 cursor-pointer text-center font-mono active:scale-[0.99]">
+                                            + Add To Cart
+                                        </button>
+                                    <% } %>
+                                </div>
+                            </form>
+                        </div>
+                    <% }); %>
+
+                </div>
+            <% } else { %>
+                <!-- Elegant Empty State Fallback -->
+                <div class="text-center py-24 border border-neutral-200 rounded-none max-w-md mx-auto font-mono bg-white">
+                    <div class="w-12 h-12 border border-neutral-200 flex items-center justify-center mx-auto mb-5 text-neutral-400 rounded-none">
+                        <i class="bi bi-bag-x text-base"></i>
+                    </div>
+                    <h3 class="text-xs font-black text-neutral-900 uppercase tracking-[0.2em]">No Line Items Found</h3>
+                    <p class="text-[10px] text-neutral-400 mt-2 max-w-xs mx-auto uppercase tracking-wide">we are currently restocking this sequence. check back shortly for our new premium drop.</p>
+                    <a href="/" class="inline-block mt-6 text-[10px] font-bold uppercase tracking-[0.2em] border-b border-black text-neutral-900 pb-0.5 hover:text-neutral-500 hover:border-neutral-300 transition-colors">&larr; Return to base</a>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <%- include("../partials/footer") %>
+</body>
+
+</html>

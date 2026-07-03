@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+  <title>Create Account | BagVerse</title>
+  <link rel="icon" href="/images/favicon.svg" class="rounded-none">
+</head>
+
+<body class="bg-[#FCFCFC] text-neutral-900 font-sans antialiased selection:bg-black selection:text-white">
+  
+  <div class="min-h-screen px-4 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    
+    <!-- Minimal Brand Identity -->
+    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
+      <a href="/" class="text-lg font-black tracking-[0.25em] text-neutral-900 font-mono uppercase">
+        BAG<span class="font-light text-neutral-400">VERSE</span>
+      </a>
+      <h2 class="mt-4 text-xs font-bold uppercase tracking-[0.15em] text-neutral-500 font-mono">
+        // Registration Terminal
+      </h2>
+    </div>
+
+    <!-- Main Formulation Box -->
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-6 border border-neutral-200/80 rounded-none sm:px-10">
+        
+        <form action="/users/register" method="post" class="space-y-6">
+
+          <!-- Full Name Input Field -->
+          <div class="space-y-1.5">
+            <label for="name" class="block text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Full Name</label>
+            <div class="relative rounded-none">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400 text-xs">
+                <i class="fas fa-user"></i>
+              </div>
+              <input type="text" name="name" id="name" required
+                class="w-full bg-neutral-50 border border-neutral-200 rounded-none pl-10 pr-4 py-3 text-xs text-neutral-900 placeholder-neutral-400 font-mono transition-all outline-none focus:bg-white focus:border-neutral-900"
+                placeholder="Your Full Name" />
+            </div>
+          </div>
+
+          <!-- Email Address Input Field -->
+          <div class="space-y-1.5">
+            <label for="email" class="block text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Email Address</label>
+            <div class="relative rounded-none">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400 text-xs">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input type="email" name="email" id="email" required
+                class="w-full bg-neutral-50 border border-neutral-200 rounded-none pl-10 pr-4 py-3 text-xs text-neutral-900 placeholder-neutral-400 font-mono transition-all outline-none focus:bg-white focus:border-neutral-900"
+                placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <!-- Password Input Field -->
+          <div class="space-y-1.5">
+            <label for="password" class="block text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Password Sec Key</label>
+            <div class="relative rounded-none">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400 text-xs">
+                <i class="fas fa-lock"></i>
+              </div>
+              <input type="password" name="password" id="password" required
+                class="w-full bg-neutral-50 border border-neutral-200 rounded-none pl-10 pr-4 py-3 text-xs text-neutral-900 placeholder-neutral-400 font-mono transition-all outline-none focus:bg-white focus:border-neutral-900"
+                placeholder="••••••••" />
+            </div>
+          </div>
+
+          <!-- Submit CTA Module -->
+          <div class="pt-2">
+            <button type="submit"
+              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-none text-[10px] font-bold uppercase tracking-[0.2em] text-white bg-neutral-950 hover:bg-neutral-800 transition-all duration-150 cursor-pointer font-mono active:scale-[0.99]">
+              Register Account
+            </button>
+          </div>
+
+          <!-- Account Redirection Sequence -->
+          <div class="w-full flex justify-center items-center pt-4 border-t border-neutral-100">
+            <a href="/login"
+              class="group flex items-center text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-500 transition-colors duration-200 hover:text-black font-mono">
+              Already have credentials
+              <span class="inline-block ml-2 transition-transform duration-200 group-hover:translate-x-1.5">→</span>
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

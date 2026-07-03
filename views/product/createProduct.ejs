@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BagVerse Admin | Create Product</title>
+</head>
+
+<body class="bg-neutral-950 font-sans text-neutral-200 antialiased min-h-screen flex selection:bg-white selection:text-black">
+
+    <div class="flex-1 flex flex-col min-w-0">
+
+        <!-- Header Panel -->
+        <header class="h-20 bg-neutral-950 border-b border-neutral-900 flex items-center justify-between px-6 sm:px-8 z-10 shrink-0 font-mono">
+            <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+                <a href="/admin/products" class="hover:text-white transition-colors">// Stock Catalog</a>
+                <span>/</span>
+                <span class="text-white">Add Fresh Variant</span>
+            </div>
+            <a href="/admin/dashboard" class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 hover:text-white transition-colors flex items-center gap-2 border border-neutral-800 px-3 py-1.5 bg-neutral-900/40 hover:bg-neutral-900">
+                <i class="fas fa-arrow-left text-[9px]"></i> Cancel System
+            </a>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 p-6 sm:p-12 overflow-y-auto flex justify-center items-start bg-neutral-950">
+
+            <div class="w-full max-w-3xl border border-neutral-900 bg-neutral-900/20 p-6 sm:p-10 rounded-none">
+
+                <!-- Heading Section -->
+                <div class="mb-10 border-b border-neutral-900 pb-6">
+                    <h1 class="text-xl sm:text-2xl font-black text-white uppercase tracking-widest font-mono">
+                        Deploy <span class="font-light text-neutral-400">New Asset</span>
+                    </h1>
+                    <p class="text-[11px] font-mono text-neutral-500 mt-1.5 lowercase leading-relaxed">
+                        populate system architecture metrics to register a fresh line item into active production.
+                    </p>
+                </div>
+
+                <form id="productForm" action="/admin/product/create" method="POST" enctype="multipart/form-data" class="flex flex-col space-y-8">
+
+                    <!-- Drag & Drop Blueprint Asset -->
+                    <div class="flex flex-col space-y-2.5">
+                        <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 font-mono">Product Blueprint Asset</label>
+
+                        <div class="relative group">
+                            <label id="dropZone" class="relative flex flex-col items-center justify-center w-full h-56 border border-dashed border-neutral-800 rounded-none cursor-pointer bg-neutral-950/40 hover:bg-neutral-900/50 hover:border-neutral-500 transition-all overflow-hidden">
+
+                                <div id="defaultView" class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4 transition-opacity duration-300 font-mono">
+                                    <div class="p-3 bg-neutral-900 border border-neutral-800 text-neutral-500 group-hover:text-white transition-all duration-300 mb-3 rounded-none">
+                                        <i class="fas fa-cloud-upload-alt text-sm"></i>
+                                    </div>
+                                    <p class="text-[11px] text-neutral-300 font-bold uppercase tracking-wider">
+                                        Click to select / drag-drop asset
+                                    </p>
+                                    <p class="text-[9px] text-neutral-500 tracking-wide mt-1.5 lowercase">
+                                        supports png, jpg, or raw high-fidelity webp renders (max. 5mb)
+                                    </p>
+                                </div>
+
+                                <img id="imagePreview" src="" alt="Dynamic Visual Preview Asset" class="absolute inset-0 w-full h-full object-cover hidden rounded-none" />
+
+                                <input type="file" name="image" id="fileInput" class="hidden" required accept="image/*" />
+                            </label>
+
+                            <!-- Clean Square Reset Button -->
+                            <button type="button" id="resetImage" class="absolute top-4 right-4 bg-neutral-950 border border-neutral-800 text-neutral-400 w-8 h-8 rounded-none flex items-center justify-center hover:bg-red-950/40 hover:text-red-400 transition-all scale-0 opacity-0 z-10 cursor-pointer">
+                                <i class="fas fa-times text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Input Fields Layout -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Design Title -->
+                        <div class="flex flex-col space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Design Title</label>
+                            <input class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none px-4 py-3.5 text-xs text-white placeholder-neutral-700 font-mono transition-all" 
+                                required placeholder="e.g., SUEDE MINIMALIST TOTE" type="text" name="name">
+                        </div>
+
+                        <!-- Total in Stock -->
+                        <div class="flex flex-col space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Total Units In Stock</label>
+                            <input class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none px-4 py-3.5 text-xs text-white placeholder-neutral-700 font-mono transition-all" 
+                                required placeholder="e.g., 20" type="number" min="0" name="stock">
+                        </div>
+
+                        <!-- Base Price -->
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Base Value ($)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-xs font-mono font-bold text-neutral-600">$</span>
+                                <input class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none pl-9 pr-4 py-3.5 text-xs text-white placeholder-neutral-700 font-mono transition-all" 
+                                    required placeholder="0.00" type="number" step="0.01" min="0" name="price">
+                            </div>
+                        </div>
+
+                        <!-- Markdown Discount -->
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Active Markdown (%)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-xs font-mono font-bold text-neutral-600">%</span>
+                                <input class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none pl-9 pr-4 py-3.5 text-xs text-white placeholder-neutral-700 font-mono transition-all" 
+                                    required placeholder="0" type="number" min="0" max="100" name="discount" value="0">
+                            </div>
+                        </div>
+
+                        <!-- Operational Node Mapping (Category) -->
+                        <div class="flex flex-col space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Inventory Node Category Mapping</label>
+                            <select class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none px-4 py-3.5 text-xs text-neutral-400 focus:text-white font-mono transition-all cursor-pointer appearance-none" 
+                                required name="category">
+                                <option value="" disabled selected hidden>Select inventory node matrix...</option>
+                                <option value="HAND-BAG">Handbag Config</option>
+                                <option value="BACK-PACK">Backpack Config</option>
+                                <option value="TRAVEL-BAG">Travel Gear Config</option>
+                                <option value="OTHERS">Miscellaneous Matrix</option>
+                            </select>
+                        </div>
+
+                        <!-- Collection Style Mapping (Sub-category) -->
+                        <div class="flex flex-col space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono">Collection Style Variant</label>
+                            <select class="w-full rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none px-4 py-3.5 text-xs text-neutral-400 focus:text-white font-mono transition-all cursor-pointer appearance-none mb-2" 
+                                required name="subCategory">
+                                <option value="" disabled selected hidden>Select architecture variant...</option>
+                                <option value="others">Null / Raw Formulation</option>
+                                <option value="urban">Urban Architecture</option>
+                                <option value="luxury">Studio Elite Luxe</option>
+                                <option value="travel">Global Transit Duffle</option>
+                            </select>
+
+                            <!-- Product Description -->
+                            <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-400 font-mono mt-4">Product Formulation Notes</label>
+                            <textarea class="w-full min-h-30 rounded-none bg-neutral-950 border border-neutral-900 focus:border-neutral-500 focus:outline-none px-4 py-3.5 text-xs text-white placeholder-neutral-700 font-mono transition-all resize-y" 
+                                placeholder="Write detailed premium description asset metrics..." name="description"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Action Trigger Button -->
+                    <div class="pt-6 border-t border-neutral-900 flex justify-end">
+                        <button type="submit" class="w-full sm:w-auto bg-white text-black hover:bg-neutral-200 text-[10px] font-bold uppercase tracking-[0.2em] px-8 py-4.5 rounded-none transition-all duration-150 cursor-pointer text-center font-mono active:scale-[0.99]">
+                            [+] Deploy Production Line Item
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Logic (Kept fully operational, updated styling classes dynamically) -->
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const defaultView = document.getElementById('defaultView');
+        const imagePreview = document.getElementById('imagePreview');
+        const dropZone = document.getElementById('dropZone');
+        const resetBtn = document.getElementById('resetImage');
+
+        function showPreview(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                    defaultView.classList.add('opacity-0', 'pointer-events-none');
+
+                    dropZone.classList.add('border-neutral-400', 'bg-neutral-900/30');
+                    dropZone.classList.remove('border-neutral-800');
+
+                    resetBtn.classList.remove('scale-0', 'opacity-0');
+                    resetBtn.classList.add('scale-100', 'opacity-100');
+                };
+            }
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            showPreview(e.target.files[0]);
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-neutral-400', 'bg-neutral-900/30');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            if (imagePreview.classList.contains('hidden')) {
+                dropZone.classList.remove('border-neutral-400', 'bg-neutral-900/30');
+            }
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            showPreview(e.dataTransfer.files[0]);
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fileInput.value = '';
+            imagePreview.src = '';
+            imagePreview.className = 'absolute inset-0 w-full h-full object-cover hidden rounded-none';
+            defaultView.classList.remove('opacity-0', 'pointer-events-none');
+
+            dropZone.classList.remove('border-neutral-400', 'bg-neutral-900/30');
+            dropZone.classList.add('border-neutral-800');
+
+            resetBtn.classList.add('scale-0', 'opacity-0');
+            resetBtn.classList.remove('scale-100', 'opacity-100');
+        });
+    </script>
+
+</body>
+</html>
