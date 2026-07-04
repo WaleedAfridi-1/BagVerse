@@ -3,6 +3,13 @@
 
 ---
 
+# Demo Video
+
+📹 **Project Demo:** [Watch adim.mp4](videos/adim.mp4)
+
+📹 **User Demo:** [Watch user.mp4](videos/user.mp4)
+
+---
 ## ⚡ Key Features
 
 * **Premium Shopping Cart Engine** – High-speed server-driven session mutations, robust line-item updates, and fluid frontend state persistence.
