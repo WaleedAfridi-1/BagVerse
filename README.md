@@ -2,23 +2,6 @@
 > A premium, high-performance enterprise e-commerce platform engineered with Node.js, Express.js, and MongoDB. Structured with rigid minimalist, high-contrast UI/UX standards, raw server-side performance, and semantic routing architectures.
 
 ---
-
-# Demo Video
-
-<html>
-  <body>
-    <video controls width="700">
-  <source src="videos/adim.mp4" type="video/mp4">
-</video>
-  </body>
-</html>
-
-
-📹 **Project Demo:** [Watch adim.mp4](videos/adim.mp4)
-
-📹 **User Demo:** [Watch user.mp4](videos/user.mp4)
-
----
 ## ⚡ Key Features
 
 * **Premium Shopping Cart Engine** – High-speed server-driven session mutations, robust line-item updates, and fluid frontend state persistence.
