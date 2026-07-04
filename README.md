@@ -4,7 +4,7 @@
 ---
 
 # Demo Video
-```html
+
 <html>
   <body>
     <video controls width="700">
@@ -12,7 +12,7 @@
 </video>
   </body>
 </html>
-```
+
 
 📹 **Project Demo:** [Watch adim.mp4](videos/adim.mp4)
 
