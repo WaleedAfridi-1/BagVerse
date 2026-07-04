@@ -29,25 +29,20 @@
 ### 1. Repository Setup & Dependencies
 Clone the infrastructure repository locally and trigger a clean npm package sync:
 
-git clone https://github.com/waleed-afridi/bagverse.git
-cd bagverse
+git clone https://github.com/Waleed-Afridi-1/BagVerse.git
+cd BagVerse
 npm install
 
 ### 2. Environment Configuration
 Establish a protected local configuration matrix. Establish a secure .env file in your root workspace:
 
-PORT=3000
-NODE_ENV=development
-MONGODB_URI="mongodb+srv://sweetotiktokg_db_user:waleed123@cluster0.nj6uahg.mongodb.net"
 
 ### 3. Running the Infrastructure Pipeline
 Boot up the high-performance local hot-reloading server:
 
-npm run dev
+nodemon server.js
 
-Or initiate the production boot command:
 
-npm start
 
 Open your secure workspace environment at: http://localhost:3000
 
