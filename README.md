@@ -37,7 +37,7 @@ npm i nodemon
 ### 3. Running the Infrastructure Pipeline
 Boot up the high-performance local hot-reloading server:
 ```
-nodemon server.js
+nodemon app.js
 ```
 
 Open your secure workspace environment at: 
