@@ -29,21 +29,21 @@
 Clone the infrastructure repository locally and trigger a clean npm package sync:
 
 git clone [https://github.com/Waleed-Afridi-1/BagVerse.git](https://github.com/WaleedAfridi-1/BagVerse)
+```
 cd BagVerse
-npm install
-
-### 2. Environment Configuration
-Establish a protected local configuration matrix. Establish a secure .env file in your root workspace:
-
+npm i nodemon
+```
 
 ### 3. Running the Infrastructure Pipeline
 Boot up the high-performance local hot-reloading server:
-
+```
 nodemon server.js
+```
 
-
-
-Open your secure workspace environment at: http://localhost:3000
+Open your secure workspace environment at: 
+```
+http://localhost:3000
+```
 
 ---
 
