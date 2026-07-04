@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const debug = require('debug')("development : mongoose");
 const config = require('config');
@@ -7,7 +6,7 @@ const config = require('config');
 mongoose
     .connect(`${config.get("MONGODB_URI")}/e-commerce`)
     .then(() => {
-        debug("Db Connected Successfully.")
+        console.log("Db Connected Successfully.")
     })
     .catch((err) => {
         debug(err)

@@ -23,7 +23,8 @@ router.get("/", isLogin,async (req, res) => {
 })
 
 router.get("/sign-up", (req, res) => {
-    res.render("user/registerUser")
+    const error = req.flash("error")
+    res.render("user/registerUser",{error})
 })
 
 router.get("/login", (req, res) => {
