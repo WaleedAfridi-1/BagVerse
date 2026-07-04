@@ -4,6 +4,15 @@
 ---
 
 # Demo Video
+```html
+<html>
+  <body>
+    <video controls width="700">
+  <source src="videos/adim.mp4" type="video/mp4">
+</video>
+  </body>
+</html>
+```
 
 📹 **Project Demo:** [Watch adim.mp4](videos/adim.mp4)
 
