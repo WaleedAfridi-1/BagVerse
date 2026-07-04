@@ -29,7 +29,7 @@
 ### 1. Repository Setup & Dependencies
 Clone the infrastructure repository locally and trigger a clean npm package sync:
 
-git clone https://github.com/Waleed-Afridi-1/BagVerse.git
+git clone [https://github.com/Waleed-Afridi-1/BagVerse.git](https://github.com/WaleedAfridi-1/BagVerse)
 cd BagVerse
 npm install
 
